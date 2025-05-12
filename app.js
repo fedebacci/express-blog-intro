@@ -51,6 +51,14 @@ app.get('/', (req, res) => {
 });
 
 
+app.get('/bacheca', (req, res) => {
+    console.log(`Richiesta ricevuta a: /bacheca sulla porta: ${port}`);
+
+    response = posts;
+    res.json(response);
+});
+
+
 
 app.listen(port, () => {
     console.log(`Server del mio blog in ascolto sulla porta: ${port}`);
