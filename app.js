@@ -147,7 +147,7 @@ app.get('/post', (req, res) => {
         res.json(requestedPost);
     } else {
         res
-            .status('404')
+            .status(404)
             .send(`Post ${requestedId} non trovato.`)
     };
 });
