@@ -116,6 +116,44 @@ app.get('/bacheca', (req, res) => {
     res.json(response);
 });
 
+// - GET "/post?id=num"
+// * 
+app.get('/post', (req, res) => {
+    console.log(`Richiesta ricevuta a: /post?id=num sulla porta: ${port}`);
+
+    // console.log(req);
+    // console.log(req.originalUrl);
+    // console.log(req._parsedUrl);
+    // console.log(req._parsedUrl.search);
+    // console.log(req._parsedUrl.query);
+    
+    const testString = req._parsedUrl.query;
+    console.log(testString);
+    const searchParams = new URLSearchParams(testString);
+    const requestedId = searchParams.get('id');
+    console.log(requestedId);
+
+    // res.json('OK');
+    res.json(posts[requestedId - 1]);
+});
+
+// - GET "/post/:id"
+// * 
+app.get('/post/:id', (req, res) => {
+    console.log(`Richiesta ricevuta a: /post/:id sulla porta: ${port}`);
+
+    // console.log(req);
+    // console.log(req.params);
+    // console.log(req.params.id);
+    // console.log(typeof(req.params.id));
+
+    const requestedId = req.params.id;
+    console.log(requestedId);
+
+    // res.json('OK');
+    res.json(posts[requestedId - 1]);
+});
+
 
 
 
