@@ -4,7 +4,10 @@
   "description": "Esercizio, Boolean, Blog",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js TEST"
+    "start": "node app.js",
+    "watch": "node --watch app.js",
+    "test": "node app.js TEST",
+    "dev": "node --watch app.js TEST"
   },
   "repository": {
     "type": "git",
