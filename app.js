@@ -1,5 +1,8 @@
+// * UTILIZZO DOTENV PER UTILIZZARE LE VARIABILI DI SISTEMA
 require('dotenv').config();
+// * PRENDO PER DESTRUTTURAZIONE LE VARIABILI DAL FILE .env CREATO 
 const { APP_HOST, APP_PORT } = process.env;
+// * USO LE VARIABILI DAL FILE .env CREATO 
 const app_url = `${APP_HOST}${APP_PORT ? ":" + APP_PORT : ""}`;
 
 
@@ -7,7 +10,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-
+// * UTILIZZO MIDDLEWARE STATIC PER METTERE A DISPOSIZIONE LE IMMAGINI DEI POST
 app.use(express.static('public'))
 
 
@@ -63,7 +66,7 @@ app.get('/', (req, res) => {
 app.get('/bacheca', (req, res) => {
     console.log(`Richiesta ricevuta a: /bacheca sulla porta: ${port}`);
 
-    response = posts;
+    response = { posts };
     res.json(response);
 });
 
