@@ -143,7 +143,13 @@ app.get('/post', (req, res) => {
     // console.log(requestedPost);
 
     // res.json('OK');
-    res.json(requestedPost);
+    if (requestedPost) {
+        res.json(requestedPost);
+    } else {
+        res
+            .status('404')
+            .send(`Post ${requestedId} non trovato.`)
+    };
 });
 
 // - GET "/post/:id"
@@ -164,7 +170,13 @@ app.get('/post/:id', (req, res) => {
     // console.log(requestedPost);
 
     // res.json('OK');
-    res.json(requestedPost);
+    if (requestedPost) {
+        res.json(requestedPost);
+    } else {
+        res
+            .status(404)
+            .send(`Post ${requestedId} non trovato.`)
+    };
 });
 
 
