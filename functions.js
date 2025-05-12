@@ -10,4 +10,18 @@ const getBacheca = (posts) => {
     return { posts };
 };
 
-module.exports = { getBacheca };
+
+
+
+
+const getSinglePost = (posts, requestedId) => {
+    // console.log(posts)
+    // console.log(requestedId)
+    // console.log(posts.find(post => post.id === requestedId))
+    return posts.find(post => post.id === requestedId);
+};
+
+
+
+
+module.exports = { getBacheca, getSinglePost };
