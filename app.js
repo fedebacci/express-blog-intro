@@ -1,19 +1,56 @@
-// * UTILIZZO DOTENV PER UTILIZZARE LE VARIABILI DI SISTEMA
+// # DOTENV (variabili di sistema - dependency)
+
+// - DOTENV Import & Config
+// * IMPORTO E UTILIZZO SUBITO DOTENV PER UTILIZZARE LE VARIABILI DI SISTEMA invocando metodo .config() (DOPO AVER FATTO npm i dotenv)
 require('dotenv').config();
+
+// - DOTENV Get variables from destructuring
 // * PRENDO PER DESTRUTTURAZIONE LE VARIABILI DAL FILE .env CREATO 
 const { APP_HOST, APP_PORT } = process.env;
+
+// - DOTENV Use variables from destructuring
 // * USO LE VARIABILI DAL FILE .env CREATO 
 const app_url = `${APP_HOST}${APP_PORT ? ":" + APP_PORT : ""}`;
+const port = APP_PORT;
 
 
+
+
+
+// # EXPRESS (gestione richieste/risposte e middlewares - dependency)
+
+// - EXPRESS Import
+// * IMPORTO I PACCHETTI DI EXPRESS INSTALLATI (DOPO AVER FATTO npm i express)
 const express = require('express');
-const app = express();
-const port = 3000;
 
+// - EXPRESS Express app initialization
+// * INIZIALIZZO L'APPLICAZIONE EXPRESS INVOCANDO LA FUNZIONE express()
+const app = express();
+
+
+
+// # CUSTOM IMPORTS (mie funzioni - functions.js)
+
+// - getBacheca(posts) => Ricezione posts
+// * IMPORTO LA FUNZIONE CHE HO SCRITTO IN FUNCTIONS.JS PER POTERLA UTILIZZARE
+const { getBacheca } = require('./functions.js');
+
+
+
+
+
+// # MIDDLEWARES - "Parti di mezzo" (Funzionalità agg. messe a disposizione da pacchetti di express)
+
+// - .static('foldername = public') => Gestione files statici
 // * UTILIZZO MIDDLEWARE STATIC PER METTERE A DISPOSIZIONE LE IMMAGINI DEI POST
 app.use(express.static('public'))
 
 
+
+
+
+// todo: SOSTITUIRE CON RICHIESTA A DB
+// # COSTANTE POSTS
 const posts = [
     {
         titolo: "Post 1",
@@ -55,6 +92,13 @@ const posts = [
 ]
 
 
+
+
+
+// # GESTIONE RICHIESTE GET
+
+// - GET "/"
+// * GESTISCO RICHIESTA ALLA HOME DANDO IL BENVENUTO
 app.get('/', (req, res) => {
     console.log(`Richiesta ricevuta a: / sulla porta: ${port}`);
 
@@ -62,16 +106,24 @@ app.get('/', (req, res) => {
     res.send(response);
 });
 
-
+// - GET "/bacheca"
+// * GESTISCO RICHIESTA ALL BACHECA INVOCANDO FUNZIONE getBacheca(posts) E RISPONDENDO AL CLIENT CON L'OGGETTO APPROPRIATO
 app.get('/bacheca', (req, res) => {
     console.log(`Richiesta ricevuta a: /bacheca sulla porta: ${port}`);
 
-    response = { posts };
+    // todo: chiedere informazioni a db tramite la funzione (da scrivere in file "fetch.js" o simile invece che in functios.js) per poi manipolarle e servirle al browser
+    response = getBacheca(posts);
     res.json(response);
 });
 
 
 
+
+
+// # ASCOLTO DELLA PORTA DA PARTE DEL SERVER
+
+// - SERVER LISTEN
+// * METTO IL SERVER IN ASCOLTO PER LE RICHIESTE SULLA PORTA port (Equivale a APP_PORT in .env)
 app.listen(port, () => {
     console.log(`Server del mio blog in ascolto sulla porta: ${port}`);
-})
+});
