@@ -1,22 +1,3 @@
-// # DOTENV (variabili di sistema - dependency)
-
-// - DOTENV Import & Config
-// * IMPORTO E UTILIZZO SUBITO DOTENV PER UTILIZZARE LE VARIABILI DI SISTEMA invocando metodo .config() (DOPO AVER FATTO npm i dotenv)
-require('dotenv').config();
-
-// - DOTENV Get variables from destructuring
-// * PRENDO PER DESTRUTTURAZIONE LE VARIABILI DAL FILE .env CREATO 
-const { APP_HOST, APP_PORT } = process.env;
-
-// - DOTENV Use variables from destructuring
-// * USO LE VARIABILI DAL FILE .env CREATO 
-const app_url = `${APP_HOST}${APP_PORT ? ":" + APP_PORT : ""}`;
-const port = APP_PORT;
-
-
-
-
-
 // # EXPRESS (gestione richieste/risposte e middlewares - dependency)
 
 // - EXPRESS Import
@@ -49,8 +30,14 @@ app.use(express.static('public'))
 
 
 
+// # COSTANTI
+
+// - COSTANTE URL
+const port = 3000;
+const app_url = `http://localhost${port ? ":" + port : ""}`;
+
 // todo: SOSTITUIRE CON RICHIESTA A DB
-// # COSTANTE POSTS
+// - COSTANTE POSTS
 const { posts } = require('./posts.js');
 console.log(posts);
 
@@ -84,6 +71,7 @@ app.get('/post', (req, res) => {
     console.log(`Richiesta ricevuta a: /post?id=num sulla porta: ${port}`);
 
     // console.log(req);
+    console.log(req.query.id);
     // console.log(req.originalUrl);
     // console.log(req._parsedUrl);
     // console.log(req._parsedUrl.search);
@@ -93,6 +81,7 @@ app.get('/post', (req, res) => {
     // console.log(testString);
     const searchParams = new URLSearchParams(testString);
     const requestedId = parseInt(searchParams.get('id'));
+    // const requestedId = req.query.id;
     // console.log(requestedId);
 
     // const requestedPost = { postData: getSinglePost(posts, requestedId) };
